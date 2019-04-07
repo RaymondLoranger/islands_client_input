@@ -21,6 +21,7 @@ defmodule Islands.Client.Input.Getter do
       case request do
         {:add_player, _, _, _} -> "all"
         {:position_all_islands, _} -> "set"
+        {:position_island, _, _, _, _} -> "set"
       end
 
     IO.puts(move)
