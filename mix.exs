@@ -4,7 +4,7 @@ defmodule Islands.Client.Input.MixProject do
   def project do
     [
       app: :islands_client_input,
-      version: "0.1.2",
+      version: "0.1.3",
       elixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,
       name: "Islands Client Input",
@@ -21,7 +21,7 @@ defmodule Islands.Client.Input.MixProject do
 
   defp description do
     """
-    Prompts for and processes input in the Game of Islands.
+    Prompts for and accepts a move in the Game of Islands.
     """
   end
 
@@ -49,10 +49,10 @@ defmodule Islands.Client.Input.MixProject do
       {:persist_config, "~> 0.1"},
       {:io_ansi_plus, "~> 0.1"},
       {:islands_tally, "~> 0.1"},
-      {:islands_client_state, "~> 0.1"},
-      {:islands_client_summary, "~> 0.1"},
       {:islands_client_game_over, "~> 0.1"},
       {:islands_client_random_guess, "~> 0.1"},
+      {:islands_client_state, "~> 0.1"},
+      {:islands_client_summary, "~> 0.1"},
       {:earmark, "~> 1.0", only: :dev},
       {:ex_doc, "~> 0.14", only: :dev, runtime: false},
       {:dialyxir, "~> 0.5", only: :dev, runtime: false}

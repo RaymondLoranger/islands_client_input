@@ -1,13 +1,10 @@
 defmodule Islands.Client.Input.Prompter do
-  @moduledoc """
-  Prompts a player for input in the _Game of Islands_.
-  """
-
   alias IO.ANSI.Plus, as: ANSI
-  alias Islands.Client.Input.{Checker, Getter}
+  alias Islands.Client.Input.{Getter, Parser}
   alias Islands.Client.{State, Summary}
 
-  @timeout_in_ms 10
+  # Hopefully enough time to flush any unprompted input...
+  @timeout_in_ms 2
 
   @spec accept_move(State.t(), ANSI.ansilist()) :: State.t() | no_return
   def accept_move(state, message \\ [])
@@ -24,13 +21,13 @@ defmodule Islands.Client.Input.Prompter do
 
     [:light_white, "#{player_name}, your move (or help):", :reset, " "]
     |> Getter.get_input(state)
-    |> Checker.check_input(state)
+    |> Parser.parse_input(state)
   end
 
   @spec flush_stdio :: true
   defp flush_stdio do
     pid = spawn(fn -> IO.read(:all) end)
-    Process.sleep(@timeout_in_ms)
-    Process.exit(pid, :kill)
+    :ok = Process.sleep(@timeout_in_ms)
+    true = Process.exit(pid, :kill)
   end
 end
