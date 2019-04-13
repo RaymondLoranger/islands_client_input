@@ -17,17 +17,20 @@ defmodule Islands.Client.Input.Prompter do
 
   @spec do_accept_move(State.t()) :: State.t() | no_return
   defp do_accept_move(%State{player_name: player_name} = state) do
-    flush_stdio()
+    true = flush_stdio(state)
 
     [:light_white, "#{player_name}, your move (or help):", :reset, " "]
     |> Getter.get_input(state)
     |> Parser.parse_input(state)
   end
 
-  @spec flush_stdio :: true
-  defp flush_stdio do
+  @spec flush_stdio(State.t()) :: true
+  defp flush_stdio(%State{mode: mode, pause: pause} = _state)
+       when mode == :manual or pause > 10 do
     pid = spawn(fn -> IO.read(:all) end)
     :ok = Process.sleep(@timeout_in_ms)
     true = Process.exit(pid, :kill)
   end
+
+  defp flush_stdio(_state), do: true
 end
