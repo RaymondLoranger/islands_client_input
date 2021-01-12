@@ -2,13 +2,10 @@
 # │ Inspired by the course "Elixir for Programmers" by Dave Thomas. │
 # └─────────────────────────────────────────────────────────────────┘
 defmodule Islands.Client.Input do
-  use PersistConfig
-
-  @course_ref Application.get_env(@app, :course_ref)
-
   @moduledoc """
   Prompts for and accepts a move in the _Game of Islands_.
-  \n##### #{@course_ref}
+
+  ##### Inspired by the course [Elixir for Programmers](https://codestool.coding-gnome.com/courses/elixir-for-programmers) by Dave Thomas.
   """
 
   alias __MODULE__.Prompter

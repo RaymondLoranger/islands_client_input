@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 config :islands_client_input,
   messages: %{

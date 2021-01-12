@@ -11,7 +11,7 @@ defmodule Islands.Client.Input.Prompter do
   def accept_move(state, []), do: do_accept_move(state)
 
   def accept_move(state, message),
-    do: state |> Summary.display(message) |> do_accept_move()
+    do: Summary.display(state, message) |> do_accept_move()
 
   # Private functions
 

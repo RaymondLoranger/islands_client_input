@@ -6,7 +6,7 @@ defmodule Islands.Client.Input.Parser do
 
   @coord_range 1..10
   @island_type_codes ["a", "d", "l", "s", "q"]
-  @messages Application.get_env(@app, :messages)
+  @messages get_env(:messages)
   @pause_range 0..10_000
 
   @spec parse_input(Input.t(), State.t()) :: State.t() | no_return
