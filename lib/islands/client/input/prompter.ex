@@ -1,7 +1,8 @@
 defmodule Islands.Client.Input.Prompter do
   alias IO.ANSI.Plus, as: ANSI
   alias Islands.Client.Input.{Getter, Parser}
-  alias Islands.Client.{State, Summary}
+  alias Islands.Client.State
+  alias Islands.Tally
 
   # Hopefully enough time to flush any unprompted input...
   @timeout_in_ms 2
@@ -10,8 +11,10 @@ defmodule Islands.Client.Input.Prompter do
   def accept_move(state, message \\ [])
   def accept_move(state, []), do: do_accept_move(state)
 
-  def accept_move(state, message),
-    do: Summary.display(state, message) |> do_accept_move()
+  def accept_move(state, message) do
+    :ok = Tally.summary(state.tally, state.player_id, message)
+    do_accept_move(state)
+  end
 
   # Private functions
 
