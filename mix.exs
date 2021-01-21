@@ -4,7 +4,7 @@ defmodule Islands.Client.Input.MixProject do
   def project do
     [
       app: :islands_client_input,
-      version: "0.1.17",
+      version: "0.1.18",
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
       name: "Islands Client Input",
@@ -51,8 +51,6 @@ defmodule Islands.Client.Input.MixProject do
       {:islands_client_random_guess, "~> 0.1"},
       {:islands_client_state, "~> 0.1"},
       {:islands_tally, "~> 0.1"},
-      {:mix_tasks,
-       github: "RaymondLoranger/mix_tasks", only: :dev, runtime: false},
       {:persist_config, "~> 0.4", runtime: false}
     ]
   end
