@@ -9,6 +9,9 @@ defmodule Islands.Client.Input.Parser do
   @messages get_env(:messages)
   @pause_range 0..10_000
 
+  @doc """
+  Parses the prompted input and, if valid, updates the client state struct.
+  """
   @spec parse_input(Input.t(), State.t()) :: State.t() | no_return
   def parse_input({:error, reason} = _input, state),
     do: GameOver.end_game(["Game ended: #{inspect(reason)}"], state)

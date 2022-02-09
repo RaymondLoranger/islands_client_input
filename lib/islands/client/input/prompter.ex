@@ -7,6 +7,9 @@ defmodule Islands.Client.Input.Prompter do
   # Hopefully enough time to flush any unprompted input...
   @timeout_in_ms 2
 
+  @doc """
+  Prompts and accepts a move.
+  """
   @spec accept_move(State.t(), ANSI.ansilist()) :: State.t() | no_return
   def accept_move(state, message \\ [])
   def accept_move(state, []), do: do_accept_move(state)
@@ -30,9 +33,9 @@ defmodule Islands.Client.Input.Prompter do
   @spec flush_stdio(State.t()) :: true
   defp flush_stdio(%State{mode: mode, pause: pause} = _state)
        when mode == :manual or pause > 10 do
-    pid = spawn(fn -> IO.read(:all) end)
+    flusher_pid = spawn(fn -> IO.read(:eof) end)
     :ok = Process.sleep(@timeout_in_ms)
-    true = Process.exit(pid, :kill)
+    true = Process.exit(flusher_pid, :kill)
   end
 
   defp flush_stdio(_state), do: true

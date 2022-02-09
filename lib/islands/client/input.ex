@@ -3,7 +3,7 @@
 # └─────────────────────────────────────────────────────────────────┘
 defmodule Islands.Client.Input do
   @moduledoc """
-  Prompts for and accepts a move in the _Game of Islands_.
+  Prompts and accepts a move in the _Game of Islands_.
 
   ##### Inspired by the course [Elixir for Programmers](https://codestool.coding-gnome.com/courses/elixir-for-programmers) by Dave Thomas.
   """
@@ -12,8 +12,12 @@ defmodule Islands.Client.Input do
   alias IO.ANSI.Plus, as: ANSI
   alias Islands.Client.State
 
+  @typedoc "Prompted input"
   @type t :: IO.chardata() | IO.nodata()
 
+  @doc """
+  Prompts and accepts a move.
+  """
   @spec accept_move(State.t(), ANSI.ansilist()) :: State.t() | no_return
   defdelegate accept_move(state, message \\ []), to: Prompter
 end

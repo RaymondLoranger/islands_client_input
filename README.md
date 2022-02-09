@@ -1,6 +1,6 @@
 # Islands Client Input
 
-Prompts for and accepts a move in the _Game of Islands_.
+Prompts and accepts a move in the _Game of Islands_.
 
 ## Installation
 

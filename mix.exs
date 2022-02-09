@@ -4,7 +4,7 @@ defmodule Islands.Client.Input.MixProject do
   def project do
     [
       app: :islands_client_input,
-      version: "0.1.27",
+      version: "0.1.28",
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
       name: "Islands Client Input",
@@ -21,7 +21,7 @@ defmodule Islands.Client.Input.MixProject do
 
   defp description do
     """
-    Prompts for and accepts a move in the Game of Islands.
+    Prompts and accepts a move in the Game of Islands.
     """
   end
 

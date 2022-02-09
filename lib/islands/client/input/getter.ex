@@ -3,6 +3,9 @@ defmodule Islands.Client.Input.Getter do
   alias Islands.Client.{Input, RandomGuess, State}
   alias Islands.Tally
 
+  @doc """
+  Gets a prompted input whether in manual or auto mode.
+  """
   @spec get_input(ANSI.ansilist(), State.t()) :: Input.t()
   def get_input(prompt, %State{mode: :manual} = _state), do: ANSI.gets(prompt)
 
