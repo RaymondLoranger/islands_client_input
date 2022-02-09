@@ -1,4 +1,8 @@
 defmodule Islands.Client.Input.Prompter do
+  @moduledoc """
+  Gets a prompted input and parses it.
+  """
+
   alias IO.ANSI.Plus, as: ANSI
   alias Islands.Client.Input.{Getter, Parser}
   alias Islands.Client.State
@@ -8,7 +12,7 @@ defmodule Islands.Client.Input.Prompter do
   @timeout_in_ms 2
 
   @doc """
-  Prompts and accepts a move.
+  Gets a prompted input and parses it.
   """
   @spec accept_move(State.t(), ANSI.ansilist()) :: State.t() | no_return
   def accept_move(state, message \\ [])

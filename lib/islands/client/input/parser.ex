@@ -1,4 +1,8 @@
 defmodule Islands.Client.Input.Parser do
+  @moduledoc """
+  Parses the prompted input and, if valid, updates the client state struct.
+  """
+
   use PersistConfig
 
   alias Islands.Client.Input.Prompter

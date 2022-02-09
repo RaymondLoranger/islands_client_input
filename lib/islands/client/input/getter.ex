@@ -1,4 +1,8 @@
 defmodule Islands.Client.Input.Getter do
+  @moduledoc """
+  Gets a prompted input whether in manual or auto mode.
+  """
+
   alias IO.ANSI.Plus, as: ANSI
   alias Islands.Client.{Input, RandomGuess, State}
   alias Islands.Tally

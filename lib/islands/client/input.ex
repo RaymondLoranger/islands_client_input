@@ -15,9 +15,6 @@ defmodule Islands.Client.Input do
   @typedoc "Prompted input"
   @type t :: IO.chardata() | IO.nodata()
 
-  @doc """
-  Prompts and accepts a move.
-  """
   @spec accept_move(State.t(), ANSI.ansilist()) :: State.t() | no_return
   defdelegate accept_move(state, message \\ []), to: Prompter
 end
