@@ -60,6 +60,15 @@ defmodule Islands.Client.Input.Parser do
       ["help"] ->
         Prompter.accept_move(state, @messages.help)
 
+      [":eof"] ->
+        parse_input(:eof, state)
+
+      [":error" | reason] ->
+        # E.g. :error 'whatever the reason'
+        reason = Enum.join(reason, " ")
+        {reason, []} = Code.eval_string(reason)
+        parse_input({:error, reason}, state)
+
       _other ->
         Prompter.accept_move(state, @messages.bad_move)
     end
