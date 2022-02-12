@@ -6,7 +6,7 @@ defmodule Islands.Client.Input.Parser do
   use PersistConfig
 
   alias Islands.Client.Input.Prompter
-  alias Islands.Client.{Input, RandomGuess, State}
+  alias Islands.Client.{GameOver, Input, RandomGuess, State}
 
   @coord_range 1..10
   @island_type_codes ["a", "d", "l", "s", "q"]
@@ -18,13 +18,23 @@ defmodule Islands.Client.Input.Parser do
   """
   @spec parse_input(Input.t(), State.t()) :: State.t() | no_return
   def parse_input({:error, reason} = _input, state) do
-    IO.puts("Game stopping: #{inspect(reason)}")
-    parse_input("stop", state)
+    IO.puts("Game stopping: #{inspect(reason)}!!")
+
+    if state.tally.game_state == :player_set do
+      GameOver.end_game(state, _notified? = true)
+    else
+      parse_input("stop", state)
+    end
   end
 
   def parse_input(:eof = input, state) do
-    IO.puts("Game stopping: #{inspect(input)}")
-    parse_input("stop", state)
+    IO.puts("Game stopping: #{inspect(input)}!!")
+
+    if state.tally.game_state == :player_set do
+      GameOver.end_game(state, _notified? = true)
+    else
+      parse_input("stop", state)
+    end
   end
 
   def parse_input(input, %State{} = state) do
