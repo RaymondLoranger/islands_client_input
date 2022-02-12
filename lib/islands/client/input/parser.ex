@@ -17,11 +17,15 @@ defmodule Islands.Client.Input.Parser do
   Parses the prompted input and, if valid, updates the client state struct.
   """
   @spec parse_input(Input.t(), State.t()) :: State.t() | no_return
-  def parse_input({:error, reason} = _input, state),
-    do: GameOver.end_game(["Game ended: #{inspect(reason)}"], state)
+  def parse_input({:error, reason} = _input, state) do
+    IO.puts("Game stopping: #{inspect(reason)}")
+    parse_input("stop", state)
+  end
 
-  def parse_input(:eof = input, state),
-    do: GameOver.end_game(["Game ended: #{inspect(input)}"], state)
+  def parse_input(:eof = input, state) do
+    IO.puts("Game stopping: #{inspect(input)}")
+    parse_input("stop", state)
+  end
 
   def parse_input(input, %State{} = state) do
     input
