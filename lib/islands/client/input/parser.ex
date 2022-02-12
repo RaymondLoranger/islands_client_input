@@ -6,7 +6,7 @@ defmodule Islands.Client.Input.Parser do
   use PersistConfig
 
   alias Islands.Client.Input.Prompter
-  alias Islands.Client.{GameOver, Input, RandomGuess, State}
+  alias Islands.Client.{Input, RandomGuess, State}
 
   @coord_range 1..10
   @island_type_codes ["a", "d", "l", "s", "q"]

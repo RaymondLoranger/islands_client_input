@@ -4,7 +4,7 @@ defmodule Islands.Client.Input.MixProject do
   def project do
     [
       app: :islands_client_input,
-      version: "0.1.37",
+      version: "0.1.38",
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
       name: "Islands Client Input",
@@ -47,7 +47,6 @@ defmodule Islands.Client.Input.MixProject do
       {:dialyxir, "~> 1.0", only: :dev, runtime: false},
       {:ex_doc, "~> 0.22", only: :dev, runtime: false},
       {:io_ansi_plus, "~> 0.1"},
-      {:islands_client_game_over, "~> 0.1"},
       {:islands_client_random_guess, "~> 0.1"},
       {:islands_client_state, "~> 0.1"},
       {:islands_tally, "~> 0.1"},
