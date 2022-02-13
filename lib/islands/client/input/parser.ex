@@ -19,23 +19,13 @@ defmodule Islands.Client.Input.Parser do
   """
   @spec parse_input(Input.t(), State.t()) :: State.t() | no_return
   def parse_input({:error, reason} = _input, state) do
-    ANSI.puts(["Game stopping: ", :light_white, "#{inspect(reason)}"])
-
-    if state.tally.game_state == :players_set do
-      GameOver.exit(state)
-    else
-      parse_input("stop", state)
-    end
+    ANSI.puts([:aqua, "Game stopping: ", :light_white, "#{inspect(reason)}"])
+    pretend_stop(state)
   end
 
   def parse_input(:eof = input, state) do
-    ANSI.puts(["Game stopping: ", :light_white, "#{inspect(input)}"])
-
-    if state.tally.game_state == :players_set do
-      GameOver.exit(state)
-    else
-      parse_input("stop", state)
-    end
+    ANSI.puts([:aqua, "Game stopping: ", :light_white, "#{inspect(input)}"])
+    pretend_stop(state)
   end
 
   def parse_input(input, %State{} = state) do
@@ -86,6 +76,25 @@ defmodule Islands.Client.Input.Parser do
 
       _other ->
         Prompter.accept_move(state, @messages.bad_move)
+    end
+  end
+
+  # Private functions
+
+  @spec simulate_stop(State.t()) :: no_return
+  defp simulate_stop(state) do
+    state = put_in(state.tally.request, {:stop, state.player_id})
+
+    put_in(state.tally.response, {:stopping, state.player_id})
+    |> GameOver.exit()
+  end
+
+  @spec pretend_stop(State.t()) :: State.t() | no_return
+  defp pretend_stop(state) do
+    if state.tally.game_state == :players_set do
+      simulate_stop(state)
+    else
+      parse_input("stop", state)
     end
   end
 end
