@@ -5,6 +5,7 @@ defmodule Islands.Client.Input.Parser do
 
   use PersistConfig
 
+  alias IO.ANSI.Plus, as: ANSI
   alias Islands.Client.Input.Prompter
   alias Islands.Client.{GameOver, Input, RandomGuess, State}
 
@@ -18,20 +19,20 @@ defmodule Islands.Client.Input.Parser do
   """
   @spec parse_input(Input.t(), State.t()) :: State.t() | no_return
   def parse_input({:error, reason} = _input, state) do
-    IO.puts("Game stopping: #{inspect(reason)}!!")
+    ANSI.puts(["Game stopping: ", :light_white, "#{inspect(reason)}"])
 
-    if state.tally.game_state == :player_set do
-      GameOver.end_game(state, _notified? = true)
+    if state.tally.game_state == :players_set do
+      GameOver.exit(state)
     else
       parse_input("stop", state)
     end
   end
 
   def parse_input(:eof = input, state) do
-    IO.puts("Game stopping: #{inspect(input)}!!")
+    ANSI.puts(["Game stopping: ", :light_white, "#{inspect(input)}"])
 
-    if state.tally.game_state == :player_set do
-      GameOver.end_game(state, _notified? = true)
+    if state.tally.game_state == :players_set do
+      GameOver.exit(state)
     else
       parse_input("stop", state)
     end
