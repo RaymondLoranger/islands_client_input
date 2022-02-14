@@ -20,12 +20,12 @@ defmodule Islands.Client.Input.Parser do
   @spec parse_input(Input.t(), State.t()) :: State.t() | no_return
   def parse_input({:error, reason} = _input, state) do
     ANSI.puts([:aqua, "Game stopping: ", :light_white, "#{inspect(reason)}"])
-    fake_stop(state)
+    force_stop(state)
   end
 
   def parse_input(:eof = input, state) do
     ANSI.puts([:aqua, "Game stopping: ", :light_white, "#{inspect(input)}"])
-    fake_stop(state)
+    force_stop(state)
   end
 
   def parse_input(input, %State{} = state) do
@@ -81,13 +81,13 @@ defmodule Islands.Client.Input.Parser do
 
   # Private functions
 
-  @spec fake_stop(State.t()) :: State.t() | no_return
-  defp fake_stop(state) when state.tally.game_state == :players_set do
+  @spec force_stop(State.t()) :: State.t() | no_return
+  defp force_stop(state) when state.tally.game_state == :players_set do
     state = put_in(state.tally.request, {:stop, state.player_id})
     put_in(state.tally.response, {:ok, :stopping}) |> GameOver.exit()
   end
 
-  defp fake_stop(state) do
+  defp force_stop(state) do
     parse_input("stop", state)
   end
 end
