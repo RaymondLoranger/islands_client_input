@@ -79,7 +79,7 @@ defmodule Islands.Client.Input.Parser do
     end
   end
 
-  # Private functions
+  ## Private functions
 
   @spec force_stop(State.t()) :: State.t() | no_return
   defp force_stop(state) when state.tally.game_state == :players_set do

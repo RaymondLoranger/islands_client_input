@@ -23,7 +23,7 @@ defmodule Islands.Client.Input.Prompter do
     do_accept_move(state)
   end
 
-  # Private functions
+  ## Private functions
 
   @spec do_accept_move(State.t()) :: State.t() | no_return
   defp do_accept_move(%State{player_name: player_name} = state) do
