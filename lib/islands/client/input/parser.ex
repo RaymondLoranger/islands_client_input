@@ -23,7 +23,7 @@ defmodule Islands.Client.Input.Parser do
     force_stop(state)
   end
 
-  def parse_input(:eof = input, state) do
+  def parse_input(input = :eof, state) do
     ANSI.puts([:aqua, "Game stopping: ", :light_white, "#{inspect(input)}"])
     force_stop(state)
   end
